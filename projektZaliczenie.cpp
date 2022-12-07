@@ -24,7 +24,7 @@ Zamowienie zamowioneDania[100];
 void wczytajMenu()
 {
 	fstream plik;
-	plik.open("Test.txt", ios::in);
+	plik.open("menu.txt", ios::in);
 	if (plik.good() == false)
 	{
 		cout << "Blad z plikiem.";
@@ -65,12 +65,13 @@ bool pokazMenu()
 	cout << "\x1B[2J\x1B[H";
 	cout << "Menu (" << cena_za_calosc << " zl)" << endl;
 	cout << "[0] - zakoncz dzialanie aplikacji" << endl;
-	cout << "[1] - zakoncz dodawanie" << endl;
+	cout << "[1] - przejdz do potwierdzenia zamowienia" << endl;
+	cout << "[2] - usun wybrana pozycje" << endl;
 	int iloscPozycji = nazwy.size();
-	iloscPozycji += 2;
-	for (int i = 2; i < iloscPozycji; i++)
-	{
-		cout << "[" << i << "] - " << nazwy[i - 2] << " (" << sklad[i - 2] << ") - " << ceny[i - 2] << " szt. zlota" << endl;
+	iloscPozycji += 3;
+	for (int i = 3; i < iloscPozycji; i++)
+	{// 3 pozycja // 1 z listy nazwa // 1 z listy sklad // pierwsza z listy cena
+		cout << "[" << i << "] - " << nazwy[i - 3] << " (" << sklad[i - 3] << ") - " << ceny[i - 3] << " szt. zlota" << endl;
 	}
 	cout << "Wybierz pozycje do dodania do podsumowania: ";
 
@@ -85,7 +86,7 @@ bool pokazMenu()
 	{
 		cout << "\x1B[2J\x1B[H";
 		cout << "Czy napewno chcesz zakonczyc dodawnie pozycji do menu?" << endl;
-		cout << "Potwierdz ponizsze zamowienie wybierajac tak: " << endl;
+		cout << "Czy potwierdzasz?" << endl;
 		cout << "------------------------------------------------" << endl;
 		for (int i = 0; i < 10; i++) {
 			if (zamowioneDania[i].liczbaTegoDania == 0) {
@@ -105,15 +106,37 @@ bool pokazMenu()
 		cin >> wybor;
 		if (wybor == 1) return false;
 	}
-	else if (wybranaPozycja >= 1)
+	else if (wybranaPozycja == 2)
 	{
-		cout << "Podaj liczbe porcji";
+		cout << "\x1B[2J\x1B[H";
+		cout << "Wybierz pozycje do usuniecia: " << endl;
+		for (int i = 0; i < 10; i++) {
+			if (zamowioneDania[i].liczbaTegoDania == 0) {
+				continue;
+			}
+			else {
+				cout << "[" << i + 1 << "] - " << zamowioneDania[i].liczbaTegoDania << "x " << zamowioneDania[i].nazwaDania << endl;
+			}
+		}
+		cout << "Wybor: ";
+		int wybor = 0;
+		cin >> wybor;
+		// Usun wybrane danie
+		if (wybor >= 1 && wybor <= 10) {
+			zamowioneDania[wybor - 1].liczbaTegoDania = 0;
+			ilosci[wybor - 1] = 0;
+			zamowioneDania[wybor - 1].nazwaDania = "";
+			cena_za_calosc -= ilosci[wybor - 1] * ceny[wybor - 1];
+		}
+	}
+	else if (wybranaPozycja >= 3)
+	{
+		cout << "Podaj liczbe porcji: ";
 		cin >> porcje;
-		zamowioneDania[wybranaPozycja - 1].liczbaTegoDania += porcje;
-		//create list of dishes and their number
-		zamowioneDania[wybranaPozycja - 1].nazwaDania = nazwy[wybranaPozycja - 1];
-		zamowioneDania[wybranaPozycja - 1].liczbaTegoDania++;
-		ilosci[wybranaPozycja - 2] += porcje;
+		//stworz liczbe dan i ich liczbe
+		zamowioneDania[wybranaPozycja - 3].nazwaDania = nazwy[wybranaPozycja - 3];
+		zamowioneDania[wybranaPozycja - 3].liczbaTegoDania += porcje;
+		ilosci[wybranaPozycja - 3] += porcje;
 	}
 
 	cena_za_calosc = 0;
@@ -159,12 +182,13 @@ int main()
 			cout << "Podaj o ktorej godzinie zamowienia ma zostac dostarczone (zamowienia dostarczane sa tylko o pelnych godzinach!)" << endl;
 			cin >> hour;
 
-			if (hour >= 12 && hour <= 23) {
+			if (hour > 12 && hour <= 23) {
 				cout << endl << "Zamowienie na godzine: " << hour << " zostanie dostarczone na adres: " << address << " po wyborze z menu, zapraszamy";
 				success = true;
 			}
 			else {
-				cout << "Wybierz godzine w czasie dzialania restauracji pomiedzy 12 a 23" << endl;
+				system("CLS");
+				cout << "Wybierz godzine w czasie dzialania restauracji pomiedzy 13 a 23!" << endl;
 				success = false;
 			}
 		}
