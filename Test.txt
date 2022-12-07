@@ -1,0 +1,30 @@
+Zlote kurczece kotlety
+Filet z kurczaka, zloto z Hamerfell
+25
+Smocza pieczen z ziolami
+Udo smoka, ziola z Wysokiego Hrothgaru
+30
+Zlociste skrzydla koguta
+Skrzydla koguta, zloto z Hamerfell
+20
+Faszerowane grzyby z borowikami
+Grzyby z Dune, borowiki
+15
+Czarodziejska zupa z krwiozerczego pajaka
+Odnoza pajaka z Mora, szaklak
+25
+Piers z potwora morskiego
+Piers z lewiatana, sol, cytryna
+35
+Orkowa kielbasa z ognista papryka
+Kielbasa z Orsinium, papryka z Mordoru
+20
+Zloty kieliszek wina elfickiego
+Wino Erveluce
+10
+Czarodziejskie ciasto z kremem ksiezycowym
+Maka, cukier, pylek ksiezycowy
+15
+Krysztalowy kieliszek mocy
+Mahakamski spirytus
+50
