@@ -5,6 +5,7 @@
 #include <vector>
 #include <sstream>
 #include <windows.h>
+#include <ctime>
 using namespace std;
 
 vector<string> nazwy;
@@ -129,7 +130,7 @@ bool pokazMenu()
 			cena_za_calosc -= ilosci[wybor - 1] * ceny[wybor - 1];
 		}
 	}
-	else if (wybranaPozycja >= 3)
+	else if (wybranaPozycja >= 3 && wybranaPozycja < 13)
 	{
 		cout << "Podaj liczbe porcji: ";
 		cin >> porcje;
@@ -137,6 +138,9 @@ bool pokazMenu()
 		zamowioneDania[wybranaPozycja - 3].nazwaDania = nazwy[wybranaPozycja - 3];
 		zamowioneDania[wybranaPozycja - 3].liczbaTegoDania += porcje;
 		ilosci[wybranaPozycja - 3] += porcje;
+	}
+	else if (wybranaPozycja > 12) {
+		cout << "Wybierz poprawny numer dania!";
 	}
 
 	cena_za_calosc = 0;
@@ -201,6 +205,19 @@ int main()
 	wczytajMenu();
 	bool menuTrwa = true;
 	while (menuTrwa) menuTrwa = pokazMenu();
+	system("CLS");
+	// Inicjalizacja generatora liczb losowych
+	srand(time(0));
+
+	// Wygeneruj losową liczbę z przedziału od 25 do 45
+	int randomNumber = rand() % (45 - 25 + 1) + 25;
+
+	if (orderType == 1) {
+		cout << "Zamowienie do stolika nr." << tableNumber << " zostanie dostarczone za okolo: " << randomNumber << " minut." << endl;
+	}
+	else {
+		cout << "Twoje zamowienie zostanie dostarczone na adres: " << address << " o godzinie " << hour << endl;
+	}
 
 	string nazwaPliku = "rachunek.txt";
 
@@ -220,7 +237,8 @@ int main()
 	}
 	plik << "Cena za calosc: " << cena_za_calosc << " zl" << endl;
 	plik.close();
-	system("pause");
+
+	cout << "Twoj rachunek zostal zapisany, aby zakonczyc dzialanie programu nacisnij dowolny klawisz" << endl;
 	
 	return 0;
 }
