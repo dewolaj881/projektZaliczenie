@@ -202,17 +202,25 @@ int main()
 	bool menuTrwa = true;
 	while (menuTrwa) menuTrwa = pokazMenu();
 
-	// Ponizsza petla wyswietla to co zostalo zamowione
-	/*for (int i = 0; i < 10; i++) {
-		if (zamowioneDania[i].liczbaTegoDania == 0) {
-			continue;
-		}
-		else {
-			cout << "[" << i + 1 << "] - " << zamowioneDania[i].liczbaTegoDania << "x " << zamowioneDania[i].nazwaDania << endl;
-		}
-	}*/
-	// Ponizszy cout wyswietla cene zamowionych dan
-	// cout << cena_za_calosc << endl;
+	string nazwaPliku = "rachunek.txt";
 
+	fstream plik;
+	plik.open(nazwaPliku, ios::out);
+	if (plik.good() == false)
+	{
+		cout << "Blad z plikiem.";
+		exit(1);
+	}
+
+	plik << "Zamowienie:" << endl;
+	for (int i = 0; i < 10; i++)
+	{
+		if (zamowioneDania[i].liczbaTegoDania == 0) continue;
+		plik << zamowioneDania[i].liczbaTegoDania << "x " << zamowioneDania[i].nazwaDania << " (" << ceny[i] << " zl/szt.)" << endl;
+	}
+	plik << "Cena za calosc: " << cena_za_calosc << " zl" << endl;
+	plik.close();
+	system("pause");
+	
 	return 0;
 }
