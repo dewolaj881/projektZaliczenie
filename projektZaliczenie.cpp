@@ -63,7 +63,7 @@ void wczytajMenu()
 bool pokazMenu()
 {
 	cout << "\x1B[2J\x1B[H";
-	cout << "Menu (" << cena_za_calosc << " zl)" << endl;
+	cout << "Menu (" << cena_za_calosc << " szt. zlota)" << endl;
 	cout << "[0] - zakoncz dzialanie aplikacji" << endl;
 	cout << "[1] - przejdz do potwierdzenia zamowienia" << endl;
 	cout << "[2] - usun wybrana pozycje" << endl;
@@ -97,7 +97,7 @@ bool pokazMenu()
 			}
 		}
 		cout << "------------------------------------------------" << endl;
-		cout << cena_za_calosc << endl;
+		cout << cena_za_calosc << " szt. zlota" << endl;
 		cout << "------------------------------------------------" << endl;
 		cout << "[1] - tak" << endl;
 		cout << "[2] - nie" << endl;
@@ -179,7 +179,7 @@ int main()
 		else if (orderType == 2) {
 			cout << "Podaj adres do zamowienia w formacie(ulica/numer ulicy)" << endl;
 			getline(cin >> ws, address);
-			cout << "Podaj o ktorej godzinie zamowienia ma zostac dostarczone (zamowienia dostarczane sa tylko o pelnych godzinach!)" << endl;
+			cout << "Podaj o ktorej godzinie zamowienia ma zostac dostarczone (zamowienia dostarczane sa tylko o pelnych godzinach!) Zamowienia dostarczamy w godzinach 13:00-23:00" << endl;
 			cin >> hour;
 
 			if (hour > 12 && hour <= 23) {
@@ -216,9 +216,9 @@ int main()
 	for (int i = 0; i < 10; i++)
 	{
 		if (zamowioneDania[i].liczbaTegoDania == 0) continue;
-		plik << zamowioneDania[i].liczbaTegoDania << "x " << zamowioneDania[i].nazwaDania << " (" << ceny[i] << " zl/szt.)" << endl;
+		plik << zamowioneDania[i].liczbaTegoDania << "x " << zamowioneDania[i].nazwaDania << " (" << ceny[i] << " szt. zlota/szt.)" << endl;
 	}
-	plik << "Cena za calosc: " << cena_za_calosc << " zl" << endl;
+	plik << "Cena za calosc: " << cena_za_calosc << " szt. zlota" << endl;
 	plik.close();
 	system("pause");
 	
